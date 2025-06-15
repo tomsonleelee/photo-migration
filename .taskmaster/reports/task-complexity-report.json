@@ -1,0 +1,21 @@
+{
+	"meta": {
+		"generatedAt": "2025-06-15T14:14:47.508Z",
+		"tasksAnalyzed": 1,
+		"totalTasks": 15,
+		"analysisCount": 1,
+		"thresholdScore": 5,
+		"projectName": "Taskmaster",
+		"usedResearch": true
+	},
+	"complexityAnalysis": [
+		{
+			"taskId": 4,
+			"taskTitle": "Develop API Integration Layer",
+			"complexityScore": 8,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Break down the API Integration Layer development into subtasks focusing on individual API clients, shared utilities, and testing strategies.",
+			"reasoning": "This task involves integrating multiple complex APIs, implementing rate limiting, error handling, and data normalization. It requires in-depth knowledge of various APIs and robust architecture design, warranting a high complexity score and multiple subtasks."
+		}
+	]
+}
