@@ -32,7 +32,6 @@ dist-ssr
 .env.production.local
 
 # Replit
-.replit
 replit.nix
 
 # Cache
@@ -46,3 +45,10 @@ out/
 # Dependencies
 .pnpm-store/
 
+# Added by Task Master AI
+dev-debug.log
+# Dependency directories
+node_modules/
+# Environment variables
+.vscode
+# OS specific
