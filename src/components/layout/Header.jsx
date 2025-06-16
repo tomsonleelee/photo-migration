@@ -9,7 +9,7 @@ const Header = () => {
 
   const navigation = [
     { name: '首頁', href: '/', icon: Home },
-    { name: '遷移工具', href: '/migrate', icon: Camera },
+    { name: '遷移', href: '/migrate', icon: Camera },
     { name: '歷史記錄', href: '/history', icon: History },
     { name: '設定', href: '/settings', icon: Settings },
   ];
@@ -25,9 +25,9 @@ const Header = () => {
           {/* Logo */}
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-2">
-              <Camera className="h-8 w-8 text-blue-600" />
+              <Camera className="h-8 w-8 text-blue-600" data-testid="camera-icon" />
               <span className="text-xl font-bold text-gray-900">
-                Photo Migration
+                相片遷移系統
               </span>
             </Link>
           </div>
@@ -68,6 +68,8 @@ const Header = () => {
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
+              aria-label={isMobileMenuOpen ? "關閉選單" : "開啟選單"}
+              aria-expanded={isMobileMenuOpen}
             >
               {isMobileMenuOpen ? (
                 <X className="h-6 w-6" />
@@ -81,7 +83,7 @@ const Header = () => {
 
       {/* Mobile Navigation */}
       {isMobileMenuOpen && (
-        <div className="md:hidden">
+        <div className="md:hidden" data-testid="mobile-menu">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200">
             {navigation.map((item) => {
               const Icon = item.icon;

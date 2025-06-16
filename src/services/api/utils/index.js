@@ -44,7 +44,6 @@ export {
 
 // Performance monitoring and optimization utilities
 export {
-  PerformanceMonitor,
   MemoryMonitor,
   RequestOptimizer
 } from './PerformanceMonitor.js';

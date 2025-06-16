@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
 import Button from './Button';
 
@@ -10,11 +10,20 @@ const Modal = ({
   size = 'md',
   showCloseButton = true,
   closeOnOverlayClick = true,
+  closeOnEscape = true,
   className = '',
+  type = 'default',
+  onConfirm,
+  confirmText = '確認',
+  cancelText = '取消',
+  confirmLoading = false,
+  ...props
 }) => {
+  const modalRef = useRef(null);
+
   useEffect(() => {
     const handleEscape = (e) => {
-      if (e.key === 'Escape' && isOpen) {
+      if (e.key === 'Escape' && isOpen && closeOnEscape) {
         onClose();
       }
     };
@@ -22,6 +31,11 @@ const Modal = ({
     if (isOpen) {
       document.addEventListener('keydown', handleEscape);
       document.body.style.overflow = 'hidden';
+      
+      // 設置焦點到模態框
+      if (modalRef.current) {
+        modalRef.current.focus();
+      }
     }
 
     return () => {
@@ -51,17 +65,26 @@ const Modal = ({
       <div 
         className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0"
         onClick={handleOverlayClick}
+        data-testid="modal-overlay"
       >
         {/* 背景遮罩 */}
         <div className="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" />
         
         {/* Modal 內容 */}
-        <div className={`inline-block w-full ${sizes[size]} my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg ${className}`}>
+        <div 
+          ref={modalRef}
+          className={`inline-block w-full ${sizes[size]} my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg ${className}`}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={title ? "modal-title" : undefined}
+          tabIndex={-1}
+          {...props}
+        >
           {/* Header */}
           {(title || showCloseButton) && (
             <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
               {title && (
-                <h3 className="text-lg font-medium text-gray-900">
+                <h3 id="modal-title" className="text-lg font-medium text-gray-900">
                   {title}
                 </h3>
               )}
@@ -69,6 +92,7 @@ const Modal = ({
                 <button
                   onClick={onClose}
                   className="text-gray-400 hover:text-gray-600 transition-colors"
+                  aria-label="關閉"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -80,6 +104,23 @@ const Modal = ({
           <div className="px-6 py-4">
             {children}
           </div>
+          
+          {/* Confirmation Footer */}
+          {type === 'confirm' && (
+            <div className="flex justify-end space-x-3 px-6 py-4 border-t border-gray-200">
+              <Button variant="outline" onClick={onClose}>
+                {cancelText}
+              </Button>
+              <Button 
+                variant="danger" 
+                onClick={onConfirm}
+                loading={confirmLoading}
+                disabled={confirmLoading}
+              >
+                {confirmText}
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </div>

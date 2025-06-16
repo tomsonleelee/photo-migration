@@ -105,6 +105,8 @@ const ToastItem = ({ toast, onRemove }) => {
 
   return (
     <div
+      role="alert"
+      aria-live={toast.type === 'error' ? 'assertive' : 'polite'}
       className={`
         transform transition-all duration-300 ease-in-out
         ${isVisible && !isLeaving ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}
@@ -143,6 +145,7 @@ const ToastItem = ({ toast, onRemove }) => {
           <div className="ml-4 flex-shrink-0 flex">
             <button
               onClick={handleRemove}
+              aria-label="關閉通知"
               className="inline-flex text-gray-400 hover:text-gray-600 focus:outline-none"
             >
               <X className="h-4 w-4" />
@@ -207,7 +210,11 @@ const SimpleToast = ({
   const Icon = icons[type];
 
   return (
-    <div className={`rounded-lg border p-4 ${styles[type]} ${className}`}>
+    <div 
+      role="alert"
+      aria-live={type === 'error' ? 'assertive' : 'polite'}
+      className={`rounded-lg border p-4 ${styles[type]} ${className}`}
+    >
       <div className="flex items-start">
         <div className="flex-shrink-0">
           <Icon className={`h-5 w-5 ${iconStyles[type]}`} />
@@ -239,6 +246,7 @@ const SimpleToast = ({
           <div className="ml-4 flex-shrink-0">
             <button
               onClick={onClose}
+              aria-label="關閉通知"
               className="inline-flex text-gray-400 hover:text-gray-600"
             >
               <X className="h-4 w-4" />

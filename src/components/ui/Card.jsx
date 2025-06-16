@@ -40,35 +40,45 @@ const Card = forwardRef(({
 Card.displayName = 'Card';
 
 // Card 子組件
-const CardHeader = ({ children, className = '', ...props }) => (
-  <div className={`mb-4 ${className}`} {...props}>
+const CardHeader = forwardRef(({ children, className = '', ...props }, ref) => (
+  <div ref={ref} className={`mb-4 ${className}`} {...props}>
     {children}
   </div>
-);
+));
 
-const CardTitle = ({ children, className = '', ...props }) => (
-  <h3 className={`text-lg font-semibold text-gray-900 ${className}`} {...props}>
+CardHeader.displayName = 'CardHeader';
+
+const CardTitle = forwardRef(({ children, className = '', ...props }, ref) => (
+  <h3 ref={ref} className={`text-lg font-semibold text-gray-900 ${className}`} {...props}>
     {children}
   </h3>
-);
+));
 
-const CardDescription = ({ children, className = '', ...props }) => (
-  <p className={`text-sm text-gray-600 ${className}`} {...props}>
+CardTitle.displayName = 'CardTitle';
+
+const CardDescription = forwardRef(({ children, className = '', ...props }, ref) => (
+  <p ref={ref} className={`text-sm text-gray-600 ${className}`} {...props}>
     {children}
   </p>
-);
+));
 
-const CardContent = ({ children, className = '', ...props }) => (
-  <div className={className} {...props}>
+CardDescription.displayName = 'CardDescription';
+
+const CardContent = forwardRef(({ children, className = '', ...props }, ref) => (
+  <div ref={ref} className={className} {...props}>
     {children}
   </div>
-);
+));
 
-const CardFooter = ({ children, className = '', ...props }) => (
-  <div className={`mt-4 pt-4 border-t border-gray-200 ${className}`} {...props}>
+CardContent.displayName = 'CardContent';
+
+const CardFooter = forwardRef(({ children, className = '', ...props }, ref) => (
+  <div ref={ref} className={`mt-4 pt-4 border-t border-gray-200 ${className}`} {...props}>
     {children}
   </div>
-);
+));
+
+CardFooter.displayName = 'CardFooter';
 
 Card.Header = CardHeader;
 Card.Title = CardTitle;
@@ -76,4 +86,5 @@ Card.Description = CardDescription;
 Card.Content = CardContent;
 Card.Footer = CardFooter;
 
+export { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter };
 export default Card; 

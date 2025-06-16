@@ -39,8 +39,8 @@ const Button = forwardRef(({
       onClick={onClick}
       {...props}
     >
-      {loading && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-      {children}
+      {loading && <Loader2 className="w-4 h-4 mr-2 animate-spin" data-testid="button-spinner" />}
+      {loading ? '載入中...' : children}
     </button>
   );
 });

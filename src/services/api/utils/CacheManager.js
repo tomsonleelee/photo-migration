@@ -1,4 +1,4 @@
-import LRU from 'lru-cache';
+import { LRU } from 'lru-cache';
 import { logger } from './Logger.js';
 
 /**
