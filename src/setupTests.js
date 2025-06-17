@@ -1,5 +1,12 @@
 import '@testing-library/jest-dom';
 
+// Add TextEncoder/TextDecoder polyfills for React Router
+if (typeof global.TextEncoder === 'undefined') {
+  const { TextEncoder, TextDecoder } = require('util');
+  global.TextEncoder = TextEncoder;
+  global.TextDecoder = TextDecoder;
+}
+
 // Mock window.matchMedia for responsive design tests
 Object.defineProperty(window, 'matchMedia', {
   writable: true,

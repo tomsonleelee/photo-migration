@@ -501,4 +501,30 @@ export default {
   TestUtils,
   setupTests,
   teardownTests
-}; 
+};
+
+// Basic test to ensure the setup file is working
+describe('Test Setup', () => {
+  test('should export required test utilities', () => {
+    expect(TEST_CONFIG).toBeDefined();
+    expect(MOCK_API_RESPONSES).toBeDefined();
+    expect(TestDataFactory).toBeDefined();
+    expect(MockHttpClient).toBeDefined();
+    expect(TestUtils).toBeDefined();
+    expect(setupTests).toBeDefined();
+    expect(teardownTests).toBeDefined();
+  });
+
+  test('should create mock photo data', () => {
+    const mockPhoto = TestDataFactory.createMockPhoto();
+    expect(mockPhoto).toBeDefined();
+    expect(mockPhoto.platform).toBeDefined();
+    expect(mockPhoto.originalId).toBeDefined();
+  });
+
+  test('should create mock HTTP client', () => {
+    const httpClient = new MockHttpClient();
+    expect(httpClient).toBeDefined();
+    expect(typeof httpClient.request).toBe('function');
+  });
+}); 

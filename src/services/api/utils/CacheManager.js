@@ -1,4 +1,4 @@
-import { LRU } from 'lru-cache';
+import { LRUCache } from 'lru-cache';
 import { logger } from './Logger.js';
 
 /**
@@ -430,7 +430,7 @@ export class CacheManager {
       options.sizeCalculation = (value) => this._calculateSize(value);
     }
 
-    const cache = new LRU(options);
+    const cache = new LRUCache(options);
 
     // Set up event handlers
     cache.on('evict', (key, value, reason) => {
