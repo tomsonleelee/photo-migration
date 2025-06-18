@@ -50,13 +50,24 @@ export const createNormalizedPhoto = ({
   thumbnailUrl,
   title = '',
   description = '',
+  dateTaken,
   createdAt,
   updatedAt = null,
   width = 0,
   height = 0,
   fileSize = 0,
   mimeType = '',
-  tags = []
+  tags = [],
+  location = null,
+  camera = null,
+  exposure = null,
+  album = null,
+  source = null,
+  originalUrl = null,
+  filename = null,
+  dimensions = null,
+  exif = null,
+  originalMetadata = null
 }) => ({
   id,
   platformId,
@@ -64,13 +75,24 @@ export const createNormalizedPhoto = ({
   thumbnailUrl,
   title,
   description,
+  dateTaken: dateTaken ? (dateTaken instanceof Date ? dateTaken : new Date(dateTaken)) : null,
   createdAt: createdAt instanceof Date ? createdAt : new Date(createdAt),
   updatedAt: updatedAt ? (updatedAt instanceof Date ? updatedAt : new Date(updatedAt)) : null,
   width: Number(width),
   height: Number(height),
   fileSize: Number(fileSize),
   mimeType,
-  tags: Array.isArray(tags) ? tags : []
+  tags: Array.isArray(tags) ? tags : [],
+  location,
+  camera,
+  exposure,
+  album,
+  source,
+  originalUrl,
+  filename,
+  dimensions,
+  exif,
+  originalMetadata
 });
 
 // Fetch Parameters Interface

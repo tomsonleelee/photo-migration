@@ -200,6 +200,8 @@ export class TestDataFactory {
   static createMockPhoto(platform = 'Google Photos', overrides = {}) {
     const basePhoto = {
       id: `test-photo-${Date.now()}`,
+      originalId: `original-${Date.now()}`,
+      platform: platform,
       title: 'Test Photo',
       description: 'A test photo for unit testing',
       dateTaken: new Date().toISOString(),

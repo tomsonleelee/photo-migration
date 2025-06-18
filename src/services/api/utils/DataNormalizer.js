@@ -47,16 +47,21 @@ export class ExifNormalizer {
     if (!latitude || !longitude) return null;
     
     try {
-      const normalizedLat = parseFloat(latitude).toFixed(6);
-      const normalizedLon = parseFloat(longitude).toFixed(6);
+      const normalizedLat = parseFloat(latitude);
+      const normalizedLon = parseFloat(longitude);
+      
+      // Check for NaN values
+      if (isNaN(normalizedLat) || isNaN(normalizedLon)) {
+        return null;
+      }
       
       if (Math.abs(normalizedLat) > 90 || Math.abs(normalizedLon) > 180) {
         return null;
       }
       
       return { 
-        latitude: parseFloat(normalizedLat), 
-        longitude: parseFloat(normalizedLon) 
+        latitude: parseFloat(normalizedLat.toFixed(6)), 
+        longitude: parseFloat(normalizedLon.toFixed(6))
       };
     } catch (error) {
       console.warn('Failed to normalize GPS coordinates:', latitude, longitude, error);
@@ -497,7 +502,9 @@ export class MetadataNormalizer {
     if (field.includes('date') || field.includes('time')) {
       const date1 = new Date(value1);
       const date2 = new Date(value2);
-      return date1 > date2 ? value1 : value2;
+      if (!isNaN(date1.getTime()) && !isNaN(date2.getTime())) {
+        return date2 > date1 ? value2 : value1; // Return the more recent date
+      }
     }
 
     // Default to first value

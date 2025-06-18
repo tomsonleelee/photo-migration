@@ -422,7 +422,15 @@ export class CacheManager {
       max: config.max,
       ttl: config.ttl,
       updateAgeOnGet: true,
-      allowStale: false
+      allowStale: false,
+      dispose: (value, key, reason) => {
+        this._updateMetrics(type, 'evicted');
+        logger.debug(`Cache eviction for ${type}`, {
+          type,
+          key,
+          reason
+        });
+      }
     };
 
     if (config.size) {
@@ -432,15 +440,8 @@ export class CacheManager {
 
     const cache = new LRUCache(options);
 
-    // Set up event handlers
-    cache.on('evict', (key, value, reason) => {
-      this._updateMetrics(type, 'evicted');
-      logger.debug(`Cache eviction for ${type}`, {
-        type,
-        key,
-        reason
-      });
-    });
+    // Note: LRU Cache v11 doesn't have event emitters
+    // Metrics are tracked through wrapper methods instead
 
     return cache;
   }

@@ -104,7 +104,7 @@ class TokenValidator {
   // Flickr token驗證
   async validateFlickrToken(token) {
     try {
-      const apiKey = import.meta.env.VITE_FLICKR_API_KEY;
+      const apiKey = process.env.VITE_FLICKR_API_KEY;
       const response = await fetch(
         `https://api.flickr.com/services/rest/?method=flickr.test.login&api_key=${apiKey}&format=json&nojsoncallback=1`,
         {
@@ -181,8 +181,8 @@ class TokenValidator {
         throw new Error('Google refresh token not available. User needs to re-authenticate.');
       }
 
-      const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-      const clientSecret = import.meta.env.VITE_GOOGLE_CLIENT_SECRET;
+          const clientId = process.env.VITE_GOOGLE_CLIENT_ID;
+    const clientSecret = process.env.VITE_GOOGLE_CLIENT_SECRET;
 
       if (!clientId) {
         throw new Error('Google client ID not configured');
@@ -228,8 +228,8 @@ class TokenValidator {
   // Facebook token刷新
   async refreshFacebookToken(currentToken) {
     try {
-      const appId = import.meta.env.VITE_FACEBOOK_APP_ID;
-      const appSecret = import.meta.env.VITE_FACEBOOK_APP_SECRET;
+          const appId = process.env.VITE_FACEBOOK_APP_ID;
+    const appSecret = process.env.VITE_FACEBOOK_APP_SECRET;
       
       // 注意：在生產環境中，這應該在後端進行
       const response = await fetch(
