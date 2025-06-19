@@ -13,10 +13,13 @@ const initialState = {
     endTime: null,
     estimatedTime: null
   },
+  albums: {},
   files: {},
   errors: [],
   logs: [],
   stats: {
+    totalAlbums: 0,
+    processedAlbums: 0,
     totalFiles: 0,
     processedFiles: 0,
     successRate: 0,
@@ -31,6 +34,7 @@ const actionTypes = {
   INIT_MIGRATION: 'INIT_MIGRATION',
   START_MIGRATION: 'START_MIGRATION',
   STOP_MIGRATION: 'STOP_MIGRATION',
+  UPDATE_ALBUM_STATUS: 'UPDATE_ALBUM_STATUS',
   UPDATE_FILE_STATUS: 'UPDATE_FILE_STATUS',
   UPDATE_OVERALL_PROGRESS: 'UPDATE_OVERALL_PROGRESS',
   ADD_ERROR: 'ADD_ERROR',
@@ -44,39 +48,70 @@ const actionTypes = {
 const progressReducer = (state, action) => {
   switch (action.type) {
     case actionTypes.INIT_MIGRATION: {
-      const { fileList } = action.payload;
+      const { albumList, fileList } = action.payload;
+      const albums = {};
       const files = {};
-      fileList.forEach(file => {
-        files[file.id] = {
-          id: file.id,
-          name: file.name,
-          size: file.size,
-          status: 'pending',
-          progress: 0,
-          error: null,
-          startTime: null,
-          endTime: null,
-          source: file.source,
-          destination: file.destination
-        };
-      });
+
+      // Initialize albums
+      if (albumList) {
+        albumList.forEach(album => {
+          albums[album.id] = {
+            id: album.id,
+            title: album.title,
+            photoCount: album.photoCount || 0,
+            status: 'pending',
+            progress: 0,
+            completedFiles: 0,
+            failedFiles: 0,
+            error: null,
+            startTime: null,
+            endTime: null,
+            platform: album.metadata?.platform
+          };
+        });
+      }
+
+      // Initialize files
+      if (fileList) {
+        fileList.forEach(file => {
+          files[file.id] = {
+            id: file.id,
+            name: file.name,
+            size: file.size,
+            albumId: file.albumId,
+            status: 'pending',
+            progress: 0,
+            error: null,
+            startTime: null,
+            endTime: null,
+            source: file.source,
+            destination: file.destination
+          };
+        });
+      }
+
+      const totalFiles = fileList ? fileList.length : 0;
+      const totalAlbums = albumList ? albumList.length : 0;
 
       return {
         ...state,
         overall: {
           ...state.overall,
-          total: fileList.length,
+          total: totalFiles,
           completed: 0,
           failed: 0,
           inProgress: 0,
           percentage: 0
         },
+        albums,
         files,
         errors: [],
         logs: [],
         stats: {
           ...state.stats,
-          totalFiles: fileList.length,
+          totalAlbums,
+          processedAlbums: 0,
+          totalFiles,
           processedFiles: 0
         }
       };
@@ -100,6 +135,48 @@ const progressReducer = (state, action) => {
           ...state.overall,
           isRunning: false,
           endTime: new Date()
+        }
+      };
+    }
+
+    case actionTypes.UPDATE_ALBUM_STATUS: {
+      const { albumId, status, error } = action.payload;
+      const currentAlbum = state.albums[albumId];
+      
+      if (!currentAlbum) return state;
+
+      // Calculate album progress based on its files
+      const albumFiles = Object.values(state.files).filter(file => file.albumId === albumId);
+      const completedFiles = albumFiles.filter(file => file.status === 'completed').length;
+      const failedFiles = albumFiles.filter(file => file.status === 'failed').length;
+      const progress = albumFiles.length > 0 ? ((completedFiles + failedFiles) / albumFiles.length) * 100 : 0;
+
+      const updatedAlbum = {
+        ...currentAlbum,
+        status,
+        progress: Math.round(progress * 100) / 100,
+        completedFiles,
+        failedFiles,
+        error: error ?? null,
+        endTime: (status === 'completed' || status === 'failed') ? new Date() : currentAlbum.endTime,
+        startTime: currentAlbum.startTime || (status === 'in-progress' ? new Date() : null)
+      };
+
+      const updatedAlbums = {
+        ...state.albums,
+        [albumId]: updatedAlbum
+      };
+
+      // Calculate overall album statistics
+      const albumArray = Object.values(updatedAlbums);
+      const processedAlbums = albumArray.filter(a => a.status === 'completed' || a.status === 'failed').length;
+
+      return {
+        ...state,
+        albums: updatedAlbums,
+        stats: {
+          ...state.stats,
+          processedAlbums
         }
       };
     }
@@ -232,10 +309,10 @@ export const ProgressProvider = ({ children }) => {
   const [state, dispatch] = useReducer(progressReducer, initialState);
 
   // Action creators
-  const initMigration = useCallback((fileList) => {
+  const initMigration = useCallback((albumList, fileList) => {
     dispatch({
       type: actionTypes.INIT_MIGRATION,
-      payload: { fileList }
+      payload: { albumList, fileList }
     });
   }, []);
 
@@ -245,6 +322,13 @@ export const ProgressProvider = ({ children }) => {
 
   const stopMigration = useCallback(() => {
     dispatch({ type: actionTypes.STOP_MIGRATION });
+  }, []);
+
+  const updateAlbumStatus = useCallback((albumId, status, error) => {
+    dispatch({
+      type: actionTypes.UPDATE_ALBUM_STATUS,
+      payload: { albumId, status, error }
+    });
   }, []);
 
   const updateFileStatus = useCallback((fileId, status, progress, error) => {
@@ -312,6 +396,7 @@ export const ProgressProvider = ({ children }) => {
       initMigration,
       startMigration,
       stopMigration,
+      updateAlbumStatus,
       updateFileStatus,
       updateOverallProgress,
       addError,
@@ -325,6 +410,7 @@ export const ProgressProvider = ({ children }) => {
     initMigration,
     startMigration,
     stopMigration,
+    updateAlbumStatus,
     updateFileStatus,
     updateOverallProgress,
     addError,

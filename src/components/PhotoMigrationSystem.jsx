@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Camera, Upload, Settings, Eye } from 'lucide-react';
+import AlbumSelector from './album/AlbumSelector';
 
 const PhotoMigrationSystem = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [connectedPlatforms, setConnectedPlatforms] = useState({});
+  const [selectedAlbums, setSelectedAlbums] = useState([]);
 
   const steps = [
     { id: 0, title: '歡迎使用', desc: '開始設定您的相簿遷移' },
@@ -28,6 +30,11 @@ const PhotoMigrationSystem = () => {
       ...prev,
       [platformId]: { status: 'connected', connectedAt: new Date() }
     }));
+  };
+
+  const handleAlbumSelectionComplete = (albums) => {
+    setSelectedAlbums(albums);
+    setCurrentStep(5); // 移動到下一步：遷移設定
   };
 
   // 基本的步驟組件
@@ -108,10 +115,26 @@ const PhotoMigrationSystem = () => {
     </div>
   );
 
+  const AlbumSelectionStep = () => {
+    const connectedPlatformIds = Object.keys(connectedPlatforms).filter(
+      id => connectedPlatforms[id].status === 'connected'
+    );
+
+    return (
+      <AlbumSelector
+        onSelectionComplete={handleAlbumSelectionComplete}
+        onBack={() => setCurrentStep(3)}
+        initialSelection={selectedAlbums}
+        platforms={connectedPlatformIds}
+      />
+    );
+  };
+
   const renderCurrentStep = () => {
     switch (currentStep) {
       case 0: return <WelcomeStep />;
       case 1: return <PlatformConnectionStep />;
+      case 4: return <AlbumSelectionStep />;
       default: return <WelcomeStep />;
     }
   };
