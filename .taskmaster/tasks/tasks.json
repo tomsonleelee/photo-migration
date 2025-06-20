@@ -429,7 +429,7 @@
           6,
           7
         ],
-        "status": "in-progress",
+        "status": "done",
         "subtasks": []
       },
       {
@@ -499,8 +499,115 @@
           3,
           9
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "in-progress",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement TLS for End-to-End Encryption",
+            "description": "Configure TLS for secure data transfer between client and server to ensure all communications are encrypted.",
+            "dependencies": [],
+            "details": "1. Generate SSL/TLS certificates or obtain from a trusted CA\n2. Configure the server to use HTTPS\n3. Implement HSTS headers\n4. Redirect HTTP traffic to HTTPS\n5. Test connection security using tools like SSL Labs",
+            "status": "pending",
+            "testStrategy": "Verify secure connections using OpenSSL and automated tests to confirm redirects and proper certificate validation"
+          },
+          {
+            "id": 2,
+            "title": "Develop Secure Token Storage with HttpOnly Cookies",
+            "description": "Implement a secure mechanism for storing authentication tokens using HttpOnly cookies to prevent XSS attacks.",
+            "dependencies": [
+              1
+            ],
+            "details": "1. Configure cookie settings with HttpOnly and Secure flags\n2. Implement SameSite attribute (strict or lax)\n3. Set appropriate expiration times\n4. Add cookie encryption if needed\n5. Implement token rotation mechanism",
+            "status": "pending",
+            "testStrategy": "Test cookie properties in responses, verify inaccessibility via JavaScript, and confirm proper expiration behavior"
+          },
+          {
+            "id": 3,
+            "title": "Implement CSRF Protection with csurf Middleware",
+            "description": "Add Cross-Site Request Forgery protection to all forms and state-changing API endpoints.",
+            "dependencies": [
+              2
+            ],
+            "details": "1. Install csurf package\n2. Configure middleware for Express application\n3. Generate and validate CSRF tokens for forms\n4. Implement token verification for API endpoints\n5. Create error handlers for CSRF validation failures",
+            "status": "pending",
+            "testStrategy": "Create tests that verify forms contain CSRF tokens and that requests without valid tokens are rejected"
+          },
+          {
+            "id": 4,
+            "title": "Create Security Audit Logging System",
+            "description": "Develop a comprehensive logging system to track security-relevant events for auditing purposes.",
+            "dependencies": [],
+            "details": "1. Define security events to be logged (login attempts, permission changes, etc.)\n2. Implement structured logging with timestamps, user IDs, and event types\n3. Create log rotation and archiving\n4. Ensure PII is properly masked in logs\n5. Add alerts for suspicious activities",
+            "status": "pending",
+            "testStrategy": "Verify logs are created for security events, properly formatted, and contain necessary information without exposing sensitive data"
+          },
+          {
+            "id": 5,
+            "title": "Implement API Rate Limiting",
+            "description": "Add rate limiting to API endpoints to prevent abuse and DoS attacks using express-rate-limit.",
+            "dependencies": [],
+            "details": "1. Install express-rate-limit package\n2. Configure global rate limits for all endpoints\n3. Set specific limits for authentication endpoints\n4. Implement custom response for rate limit exceeded\n5. Add rate limit headers to responses",
+            "status": "pending",
+            "testStrategy": "Test rate limiting by making rapid sequential requests and verifying limits are enforced with appropriate responses"
+          },
+          {
+            "id": 6,
+            "title": "Develop IP Whitelisting/Blacklisting Functionality",
+            "description": "Create a system to allow or block requests based on IP addresses for administrative and sensitive endpoints.",
+            "dependencies": [
+              5
+            ],
+            "details": "1. Design database schema for storing IP rules\n2. Create admin interface for managing IP lists\n3. Implement middleware to check incoming requests against rules\n4. Add support for IP ranges using CIDR notation\n5. Implement logging for blocked requests",
+            "status": "pending",
+            "testStrategy": "Test with various IPs to ensure whitelisted IPs can access protected resources while blacklisted IPs are blocked"
+          },
+          {
+            "id": 7,
+            "title": "Implement Two-Factor Authentication",
+            "description": "Add TOTP-based two-factor authentication using the speakeasy library to enhance login security.",
+            "dependencies": [
+              2
+            ],
+            "details": "1. Install speakeasy package\n2. Create setup flow for users to enable 2FA\n3. Generate and store secret keys securely\n4. Implement QR code generation for mobile apps\n5. Add verification step to login process\n6. Create recovery options for lost devices",
+            "status": "pending",
+            "testStrategy": "Test the full 2FA workflow including setup, verification, and recovery processes with mock TOTP generators"
+          },
+          {
+            "id": 8,
+            "title": "Create Privacy Policy and Terms of Service Pages",
+            "description": "Develop legally compliant privacy policy and terms of service documents and implement them as accessible pages.",
+            "dependencies": [],
+            "details": "1. Draft privacy policy covering data collection, usage, and retention\n2. Create terms of service document\n3. Implement versioning for policy documents\n4. Add user consent tracking\n5. Create UI components for displaying policies\n6. Ensure accessibility compliance",
+            "status": "pending",
+            "testStrategy": "Verify pages are accessible, properly formatted, and contain all required legal elements"
+          },
+          {
+            "id": 9,
+            "title": "Implement Data Anonymization for Analytics",
+            "description": "Develop a system to anonymize user data before using it for analytics purposes to protect privacy.",
+            "dependencies": [
+              4
+            ],
+            "details": "1. Identify PII fields that need anonymization\n2. Implement hashing or tokenization for identifiers\n3. Create data transformation pipeline\n4. Develop consistent anonymization across systems\n5. Ensure original data integrity is maintained separately",
+            "status": "pending",
+            "testStrategy": "Verify that anonymized data cannot be reversed to identify users while still providing useful analytics insights"
+          },
+          {
+            "id": 10,
+            "title": "Develop Automated Security Scanning System",
+            "description": "Create an automated system for regular security scans and dependency updates to maintain security posture.",
+            "dependencies": [
+              1,
+              2,
+              3,
+              5,
+              7
+            ],
+            "details": "1. Integrate dependency scanning tools (npm audit, Snyk)\n2. Set up automated vulnerability scanning\n3. Implement scheduled scans with notifications\n4. Create reporting dashboard for security status\n5. Develop process for applying security patches\n6. Add configuration for CI/CD pipeline integration",
+            "status": "pending",
+            "testStrategy": "Verify scan results are accurate by testing against known vulnerable dependencies and confirming proper notification and reporting"
+          }
+        ]
       },
       {
         "id": 15,
@@ -520,7 +627,7 @@
     ],
     "metadata": {
       "created": "2025-06-15T10:24:39.281Z",
-      "updated": "2025-06-19T23:46:00.838Z",
+      "updated": "2025-06-20T08:54:41.490Z",
       "description": "Tasks for master context"
     }
   }
