@@ -14,11 +14,13 @@ const Input = forwardRef(({
   variant = 'default',
   leftIcon,
   rightIcon,
+  id,
   ...props
 }, ref) => {
   const [showPassword, setShowPassword] = useState(false);
   const isPassword = type === 'password';
   const inputType = isPassword && showPassword ? 'text' : type;
+  const inputId = id || `input-${Math.random().toString(36).substr(2, 9)}`;
 
   const sizes = {
     sm: 'px-3 py-1.5 text-sm',
@@ -37,7 +39,7 @@ const Input = forwardRef(({
   return (
     <div className={className}>
       {label && (
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor={inputId} className="block text-sm font-medium text-gray-700 mb-1">
           {label}
           {required && <span className="text-red-500 ml-1">*</span>}
         </label>
@@ -52,6 +54,7 @@ const Input = forwardRef(({
         
         <input
           ref={ref}
+          id={inputId}
           type={inputType}
           className={`
             w-full border rounded-md transition-colors
@@ -230,33 +233,40 @@ const Radio = forwardRef(({
         </label>
       )}
       
-      <div className={directionClasses[direction]}>
-        {options.map((option, index) => (
-          <div key={option.value || index} className="flex items-center">
-            <input
-              ref={index === 0 ? ref : undefined}
-              type="radio"
-              name={name}
-              value={option.value}
-              checked={value === option.value}
-              onChange={(e) => onChange && onChange(e.target.value)}
-              disabled={disabled || option.disabled}
-              className={`
-                h-4 w-4 text-blue-600 border-gray-300
-                focus:ring-blue-500 focus:ring-2 focus:ring-offset-0
-                disabled:opacity-50 disabled:cursor-not-allowed
-                ${error ? 'border-red-300' : ''}
-              `}
-              {...props}
-            />
-            <label className={`ml-2 text-sm ${error ? 'text-red-700' : 'text-gray-700'}`}>
-              {option.label}
-              {option.description && (
-                <span className="block text-xs text-gray-500">{option.description}</span>
-              )}
-            </label>
-          </div>
-        ))}
+      <div className={directionClasses[direction]} role="radiogroup" aria-label={label}>
+        {options.map((option, index) => {
+          const inputId = `${name || 'radio'}-${option.value}-${index}`;
+          return (
+            <div key={option.value || index} className="flex items-center">
+              <input
+                ref={index === 0 ? ref : undefined}
+                id={inputId}
+                type="radio"
+                name={name}
+                value={option.value}
+                checked={value === option.value}
+                onChange={(e) => onChange && onChange(e.target.value)}
+                disabled={disabled || option.disabled}
+                className={`
+                  h-4 w-4 text-blue-600 border-gray-300
+                  focus:ring-blue-500 focus:ring-2 focus:ring-offset-0
+                  disabled:opacity-50 disabled:cursor-not-allowed
+                  ${error ? 'border-red-300' : ''}
+                `}
+                {...props}
+              />
+              <label 
+                htmlFor={inputId}
+                className={`ml-2 text-sm ${error ? 'text-red-700' : 'text-gray-700'} cursor-pointer`}
+              >
+                {option.label}
+                {option.description && (
+                  <span className="block text-xs text-gray-500">{option.description}</span>
+                )}
+              </label>
+            </div>
+          );
+        })}
       </div>
       
       {error && (

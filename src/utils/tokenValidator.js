@@ -104,7 +104,7 @@ class TokenValidator {
   // Flickr token驗證
   async validateFlickrToken(token) {
     try {
-      const apiKey = process.env.VITE_FLICKR_API_KEY;
+      const apiKey = typeof process !== 'undefined' ? process.env?.VITE_FLICKR_API_KEY : null;
       const response = await fetch(
         `https://api.flickr.com/services/rest/?method=flickr.test.login&api_key=${apiKey}&format=json&nojsoncallback=1`,
         {
@@ -172,7 +172,7 @@ class TokenValidator {
   }
 
   // Google token刷新
-  async refreshGoogleToken(currentToken) {
+  async refreshGoogleToken(_currentToken) {
     try {
       // 嘗試從儲存中獲取refresh token
       const refreshToken = await tokenStorage.getRefreshToken('google');
@@ -181,8 +181,8 @@ class TokenValidator {
         throw new Error('Google refresh token not available. User needs to re-authenticate.');
       }
 
-          const clientId = process.env.VITE_GOOGLE_CLIENT_ID;
-    const clientSecret = process.env.VITE_GOOGLE_CLIENT_SECRET;
+          const clientId = typeof process !== 'undefined' ? process.env?.VITE_GOOGLE_CLIENT_ID : null;
+    const clientSecret = typeof process !== 'undefined' ? process.env?.VITE_GOOGLE_CLIENT_SECRET : null;
 
       if (!clientId) {
         throw new Error('Google client ID not configured');
@@ -228,8 +228,8 @@ class TokenValidator {
   // Facebook token刷新
   async refreshFacebookToken(currentToken) {
     try {
-          const appId = process.env.VITE_FACEBOOK_APP_ID;
-    const appSecret = process.env.VITE_FACEBOOK_APP_SECRET;
+          const appId = typeof process !== 'undefined' ? process.env?.VITE_FACEBOOK_APP_ID : null;
+    const appSecret = typeof process !== 'undefined' ? process.env?.VITE_FACEBOOK_APP_SECRET : null;
       
       // 注意：在生產環境中，這應該在後端進行
       const response = await fetch(
@@ -269,7 +269,7 @@ class TokenValidator {
   }
 
   // Flickr token刷新
-  async refreshFlickrToken(currentToken) {
+  async refreshFlickrToken(_currentToken) {
     // Flickr token通常有較長的有效期，可能不需要頻繁刷新
     throw new Error('Flickr token refresh not typically required');
   }

@@ -73,7 +73,7 @@ class LogoutManager {
   }
 
   // Instagram登出
-  async logoutInstagram(token) {
+  async logoutInstagram(_token) {
     try {
       // Instagram沒有直接的撤銷API，但我們可以嘗試刪除權限
       // 注意：這需要用戶手動到Instagram設置中撤銷應用權限
@@ -86,7 +86,7 @@ class LogoutManager {
   }
 
   // Flickr登出
-  async logoutFlickr(token) {
+  async logoutFlickr(_token) {
     try {
       // Flickr沒有標準的撤銷API，但我們可以嘗試
       console.log('Flickr logout: Token will be removed locally. User should manually revoke app permissions in Flickr settings.');
@@ -98,7 +98,7 @@ class LogoutManager {
   }
 
   // 500px登出
-  async logout500px(token) {
+  async logout500px(_token) {
     try {
       // 500px API不再可用，只需本地清理
       console.log('500px logout: Token removed locally (API no longer available).');

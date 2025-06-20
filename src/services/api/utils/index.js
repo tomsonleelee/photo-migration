@@ -53,7 +53,7 @@ export {
  */
 export const UTILS_CONFIG = {
   logging: {
-    defaultLevel: LogLevel.INFO,
+    defaultLevel: 'INFO',
     enableStorage: true,
     maxStorageEntries: 1000
   },

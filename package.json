@@ -19,6 +19,8 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "start": "vite",
+    "repl:dev": "vite --host 0.0.0.0 --port 3000",
+    "repl:build": "vite build && vite preview --host 0.0.0.0 --port 3000",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",

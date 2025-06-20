@@ -1,34 +1,53 @@
 // .replit
-run = "npm run dev"
 entrypoint = "src/main.jsx"
-
-[nix]
-channel = "stable-22_11"
-
-[deployment]
-deploymentTarget = "static"
-publicDir = "dist"
-buildCommand = "npm run build"
-
-[[ports]]
-localPort = 3000
-externalPort = 80
+modules = ["nodejs-20"]
 
 [languages]
 
 [languages.javascript]
-pattern = "**/{*.js,*.jsx,*.ts,*.tsx,*.json}"
+pattern = "**/{*.js,*.jsx,*.ts,*.tsx,*.mjs}"
 
 [languages.javascript.languageServer]
 start = "typescript-language-server --stdio"
 
+[languages.css]
+pattern = "**/{*.css,*.scss,*.sass,*.less,*.stylus}"
+
+[nix]
+channel = "stable-24_05"
+
 [env]
-XDG_CONFIG_HOME = "/home/runner/.config"
-PATH = "/home/runner/$REPL_SLUG/.config/npm/node_global/bin:/home/runner/$REPL_SLUG/node_modules/.bin"
-npm_config_prefix = "/home/runner/$REPL_SLUG/.config/npm/node_global"
+NODE_ENV = "development"
+NPM_CONFIG_PREFIX = "/home/runner/.npm"
+PATH = "/home/runner/.npm/bin:/usr/local/bin:/usr/bin:/bin"
 
 [gitHubImport]
-requiredFiles = [".replit", "replit.nix", ".config"]
+requiredFiles = [".replit", "replit.nix", "package.json"]
+
+[deployment]
+run = ["sh", "-c", "npm run build && npm run preview"]
+deploymentTarget = "static"
+publicDir = "dist"
+
+[debugger]
+support = true
+
+[debugger.interactive]
+transport = "localhost:0"
+startCommand = ["dap-node"]
+
+[debugger.interactive.initializeMessage]
+command = "initialize"
+type = "request"
+
+[debugger.interactive.launchMessage]
+command = "launch"
+type = "request"
+
+[debugger.interactive.launchMessage.arguments]
+program = "src/main.jsx"
+console = "integratedTerminal"
+args = []
 
 [packager]
 language = "nodejs"
@@ -40,4 +59,11 @@ enabledForHosting = false
 
 [unitTest]
 language = "nodejs"
+
+[objectStorage]
+defaultBucket = "photo-migration-assets"
+
+[[ports]]
+localPort = 3000
+externalPort = 80
 

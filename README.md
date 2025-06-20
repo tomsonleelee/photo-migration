@@ -13,12 +13,52 @@
 
 ## 🚀 快速開始
 
-### 在Replit部署
+### 在 Replit 部署 (推薦)
 
-1. 前往 [Replit](https://replit.com)
-2. 點擊 "Import from GitHub"
-3. 輸入此repository的URL
-4. 等待自動部署完成
+1. **導入專案**
+   - 前往 [Replit](https://replit.com)
+   - 點擊 "Create Repl" → "Import from GitHub"
+   - 輸入此 repository 的 URL: `https://github.com/yourusername/photo-migration-system`
+   - 選擇 "Node.js" 作為語言
+
+2. **配置環境變數**
+   - 在 Replit 中點擊左側的 "Secrets" (🔒) 標籤
+   - 添加以下環境變數：
+     ```
+     VITE_GOOGLE_CLIENT_ID=你的Google客戶端ID
+     VITE_FACEBOOK_APP_ID=你的Facebook應用ID
+     VITE_API_BASE_URL=https://你的repl名稱.用戶名.repl.co
+     ```
+
+3. **獲取 API 金鑰**
+   
+   **Google Photos API:**
+   - 前往 [Google Cloud Console](https://console.cloud.google.com/)
+   - 創建新專案或選擇現有專案
+   - 啟用 "Photos Library API"
+   - 創建 OAuth 2.0 客戶端 ID
+   - 將 Replit URL 添加到授權重定向 URI
+
+   **Facebook API:**
+   - 前往 [Facebook Developers](https://developers.facebook.com/)
+   - 創建新應用
+   - 獲取應用 ID 和應用密鑰
+   - 配置 OAuth 重定向 URL
+
+4. **運行應用**
+   - 點擊綠色的 "Run" 按鈕
+   - 系統會自動安裝依賴並啟動開發服務器
+   - 在 Webview 中查看應用
+
+### Replit 特定配置
+
+專案已針對 Replit 環境進行優化：
+
+- ✅ **自動依賴安裝**: 首次運行時自動安裝 npm 包
+- ✅ **環境變數管理**: 整合 Replit Secrets 系統
+- ✅ **端口自動配置**: 自動使用 Replit 分配的端口
+- ✅ **熱重載支援**: 代碼更改時自動刷新
+- ✅ **構建優化**: 針對雲端環境的構建配置
 
 ### 本地開發
 
@@ -29,6 +69,13 @@ cd photo-migration-system
 
 # 安裝依賴
 npm install
+
+# 複製環境變數範例
+cp env.example .env
+
+# 編輯 .env 文件，添加您的 API 金鑰
+# VITE_GOOGLE_CLIENT_ID=your_google_client_id
+# VITE_FACEBOOK_APP_ID=your_facebook_app_id
 
 # 啟動開發服務器
 npm run dev
@@ -50,22 +97,49 @@ docker run -p 3000:3000 photo-migration-system
 src/
 ├── components/
 │   ├── PhotoMigrationSystem.jsx    # 主要組件
-│   ├── steps/                      # 各步驟組件
-│   └── common/                     # 共用組件
-├── hooks/                          # 自定義Hooks
-├── services/                       # API服務層
-├── utils/                          # 工具函數
-└── styles/                         # 樣式文件
+│   ├── auth/                      # 認證相關組件
+│   ├── album/                     # 相簿管理組件
+│   ├── migration/                 # 遷移配置組件
+│   ├── progress/                  # 進度追蹤組件
+│   ├── ui/                        # UI 組件庫
+│   └── common/                    # 共用組件
+├── services/                      # API 服務層
+│   ├── api/                       # API 適配器
+│   ├── fileProcessing/            # 檔案處理服務
+│   └── errors/                    # 錯誤處理
+├── hooks/                         # 自定義 Hooks
+├── contexts/                      # React Contexts
+├── utils/                         # 工具函數
+└── styles/                        # 樣式文件
 ```
 
 ## 🔧 環境配置
 
-創建 `.env` 文件並添加以下配置：
+### 必需的環境變數
 
 ```env
-VITE_GOOGLE_CLIENT_ID=your_google_client_id
-VITE_FACEBOOK_APP_ID=your_facebook_app_id
-VITE_API_BASE_URL=your_api_base_url
+# Google OAuth 配置 (必需)
+VITE_GOOGLE_CLIENT_ID=your_google_client_id_here
+
+# Facebook 應用配置 (必需)
+VITE_FACEBOOK_APP_ID=your_facebook_app_id_here
+
+# API 基礎 URL (Replit 中自動設定)
+VITE_API_BASE_URL=https://your-repl-name.username.repl.co
+```
+
+### 可選的環境變數
+
+```env
+# 其他平台 API 金鑰
+VITE_FLICKR_API_KEY=your_flickr_api_key_here
+VITE_INSTAGRAM_CLIENT_ID=your_instagram_client_id_here
+VITE_500PX_API_KEY=your_500px_api_key_here
+
+# 應用配置
+VITE_APP_TITLE="Photo Migration System"
+VITE_MAX_CONCURRENT_UPLOADS=5
+VITE_CHUNK_SIZE=1024
 ```
 
 ## 📋 使用說明
@@ -116,6 +190,7 @@ VITE_API_BASE_URL=your_api_base_url
 ### Phase 1: 基礎功能 (進行中)
 - [x] UI/UX設計
 - [x] 基礎組件開發
+- [x] Replit 環境配置
 - [ ] 平台認證整合
 - [ ] 基礎爬蟲功能
 
@@ -167,7 +242,24 @@ VITE_API_BASE_URL=your_api_base_url
 - [Lucide React](https://lucide.dev/) - 提供優美的圖標
 - [Tailwind CSS](https://tailwindcss.com/) - 現代化的CSS框架
 - [Vite](https://vitejs.dev/) - 快速的構建工具
+- [Replit](https://replit.com/) - 提供優秀的雲端開發環境
 
 ---
 
 **注意**: 本系統目前處於開發階段，請勿在生產環境中使用。使用前請仔細閱讀各社群平台的使用條款。
+
+## 🔧 Replit 故障排除
+
+### 常見問題
+
+**Q: 應用無法啟動？**
+A: 檢查 Secrets 中是否正確設定了必需的環境變數，特別是 `VITE_GOOGLE_CLIENT_ID`。
+
+**Q: OAuth 重定向失敗？**
+A: 確保在 Google/Facebook 開發者控制台中添加了正確的 Replit URL 作為授權重定向 URI。
+
+**Q: 依賴安裝失敗？**
+A: 嘗試在 Shell 中運行 `npm install --force` 來強制重新安裝依賴。
+
+**Q: 熱重載不工作？**
+A: 重新啟動 Repl 或在 Shell 中運行 `npm run repl:dev`。

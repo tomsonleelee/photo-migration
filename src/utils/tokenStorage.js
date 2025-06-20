@@ -8,7 +8,7 @@ class TokenStorage {
   checkHttpOnlySupport() {
     // 在實際應用中，這應該通過API檢查後端是否支援HttpOnly cookies
     // 這裡我們假設如果是生產環境且使用HTTPS，則支援HttpOnly
-    return window.location.protocol === 'https:' && process.env.NODE_ENV === 'production';
+    return window.location.protocol === 'https:' && (typeof process !== 'undefined' && process.env?.NODE_ENV === 'production');
   }
 
   // 設置token
