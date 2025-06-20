@@ -12,9 +12,15 @@ export default defineConfig(({ mode }) => ({
     host: '0.0.0.0',
     port: parseInt(process.env.PORT) || 3000,
     open: false,
+    strictPort: true,
     hmr: {
       port: parseInt(process.env.PORT) || 3000,
-      host: 'localhost'
+      host: '0.0.0.0',
+      clientPort: parseInt(process.env.PORT) || 3000
+    },
+    watch: {
+      usePolling: true,
+      interval: 1000
     }
   },
   build: {

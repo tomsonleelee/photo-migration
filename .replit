@@ -1,5 +1,4 @@
-// .replit
-entrypoint = "src/main.jsx"
+entrypoint = "replit-run.sh"
 modules = ["nodejs-20"]
 
 [languages]
@@ -25,7 +24,7 @@ PATH = "/home/runner/.npm/bin:/usr/local/bin:/usr/bin:/bin"
 requiredFiles = [".replit", "replit.nix", "package.json"]
 
 [deployment]
-run = ["sh", "-c", "npm run build && npm run preview"]
+run = ["sh", "-c", "npm run build && npm run preview -- --host 0.0.0.0"]
 deploymentTarget = "static"
 publicDir = "dist"
 
@@ -66,4 +65,7 @@ defaultBucket = "photo-migration-assets"
 [[ports]]
 localPort = 3000
 externalPort = 80
+
+[run]
+run = ["bash", "replit-run.sh"]
 
