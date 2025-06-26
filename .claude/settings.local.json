@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pkill:*)",
+      "Bash(true)",
+      "Bash(npm run dev:*)"
+    ],
+    "deny": []
+  }
+}

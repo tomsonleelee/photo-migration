@@ -13,6 +13,12 @@ export default defineConfig(({ mode }) => ({
     port: parseInt(process.env.PORT) || 3000,
     open: false,
     strictPort: true,
+    allowedHosts: [
+      '7749bdd2-06ed-4f87-9f73-8161673c0072-00-28l0rbh6jd7tj.sisko.replit.dev',
+      'localhost',
+      '127.0.0.1',
+      '0.0.0.0'
+    ],
     hmr: {
       port: parseInt(process.env.PORT) || 3000,
       host: '0.0.0.0',
