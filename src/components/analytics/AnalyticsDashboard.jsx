@@ -1,5 +1,5 @@
 // 隱私保護分析儀表板組件
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { 
   privacyAnalyticsManager, 
@@ -26,14 +26,14 @@ export const AnalyticsDashboard = ({
   // 載入分析統計
   useEffect(() => {
     loadStatistics();
-  }, []);
+  }, [loadStatistics]);
 
   // 當參數變化時重新載入報告
   useEffect(() => {
     if (selectedMetric && aggregationLevel) {
       loadReport();
     }
-  }, [selectedMetric, aggregationLevel, dateRange]);
+  }, [selectedMetric, aggregationLevel, dateRange, loadReport]);
 
   const loadStatistics = useCallback(async () => {
     try {

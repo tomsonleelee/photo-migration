@@ -39,7 +39,7 @@
     "bottleneck": "^2.19.5",
     "bull": "^4.16.5",
     "flickr-sdk": "^7.0.0-beta.9",
-    "framer-motion": "^12.18.1",
+    "framer-motion": "^11.18.2",
     "googleapis": "^150.0.1",
     "lru-cache": "^11.1.0",
     "lucide-react": "^0.263.1",

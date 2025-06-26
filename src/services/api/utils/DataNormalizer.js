@@ -197,7 +197,14 @@ export class FileNameNormalizer {
 
     try {
       // Extract date and time
-      const dateTime = new Date(photo.dateTaken || photo.createdAt || Date.now());
+      const rawDate = photo.dateTaken || photo.createdAt || Date.now();
+      const dateTime = new Date(rawDate);
+      
+      // Validate the date
+      if (isNaN(dateTime.getTime())) {
+        throw new Error(`Invalid date value: ${rawDate}`);
+      }
+      
       const date = dateTime.toISOString().slice(0, 10).replace(/-/g, '');
       const time = dateTime.toISOString().slice(11, 19).replace(/:/g, '');
 

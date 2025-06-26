@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import AlbumBrowser from './AlbumBrowser';
 import Button from '../ui/Button';
 import { useAuth } from '../../contexts/AuthContext';
-import { useToast } from '../../contexts/ToastContext';
+import { useToast } from '../../hooks/useToast';
 
 const AlbumSelector = ({ 
   onSelectionComplete, 

@@ -66,7 +66,7 @@ const AlbumCard = ({
         )}
         {album.privacy === 'private' && (
           <div className="absolute top-2 left-2 bg-black bg-opacity-50 rounded-full p-1">
-            <Lock className="w-4 h-4 text-white" />
+            <Lock className="w-4 h-4 text-white" data-testid="lock-icon" />
           </div>
         )}
       </div>
