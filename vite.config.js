@@ -15,14 +15,18 @@ export default defineConfig(({ mode }) => ({
     strictPort: true,
     allowedHosts: [
       '7749bdd2-06ed-4f87-9f73-8161673c0072-00-28l0rbh6jd7tj.sisko.replit.dev',
+      'fantastic-space-carnival-vwwq5ggqgww3xr99-3000.app.github.dev',
+      // GitHub Codespaces 動態 URL 支援
+      /.*\.app\.github\.dev$/,
+      /.*\.preview\.app\.github\.dev$/,
+      /.*-3000\.app\.github\.dev$/,
       'localhost',
       '127.0.0.1',
       '0.0.0.0'
     ],
     hmr: {
       port: parseInt(process.env.PORT) || 3000,
-      host: '0.0.0.0',
-      clientPort: parseInt(process.env.PORT) || 3000
+      host: 'fantastic-space-carnival-vwwq5ggqgww3xr99-3000.app.github.dev'
     },
     watch: {
       usePolling: true,
@@ -43,8 +47,8 @@ export default defineConfig(({ mode }) => ({
     }
   },
   preview: {
-    port: parseInt(process.env.PORT) || 3000,
-    host: '0.0.0.0'
+    port: parseInt(process.env.PORT) || 443,
+    host: 'fantastic-space-carnival-vwwq5ggqgww3xr99-3000.app.github.dev'
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'react-router-dom']

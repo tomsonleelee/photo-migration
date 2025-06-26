@@ -3,7 +3,14 @@
     "allow": [
       "Bash(pkill:*)",
       "Bash(true)",
-      "Bash(npm run dev:*)"
+      "Bash(npm run dev:*)",
+      "mcp__taskmaster-ai__get_tasks",
+      "Bash(chmod:*)",
+      "Bash(grep:*)",
+      "Bash(find:*)",
+      "Bash(echo $CODESPACE_NAME)",
+      "Bash(printenv)",
+      "Bash(cp:*)"
     ],
     "deny": []
   }
