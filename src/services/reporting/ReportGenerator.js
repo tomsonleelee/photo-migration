@@ -1,5 +1,5 @@
 // 報告生成器 - 產生各種類型的遷移報告和分析
-import { EventEmitter } from 'events';
+import EventEmitter from 'eventemitter3';
 import { v4 as uuidv4 } from 'uuid';
 
 // 報告類型
