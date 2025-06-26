@@ -1,9 +1,9 @@
 // 遷移歷史組件 - 查看和分析過往遷移記錄
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Card } from '../ui/Card.jsx';
-import { Button } from '../ui/Button.jsx';
-import { Modal } from '../ui/Modal.jsx';
+import Card from '../ui/Card.jsx';
+import Button from '../ui/Button.jsx';
+import Modal from '../ui/Modal.jsx';
 
 // 遷移狀態
 const MIGRATION_STATUS = {

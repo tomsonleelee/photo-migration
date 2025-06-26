@@ -1,9 +1,9 @@
 // 衝突解決器組件 - 處理數據同步衝突的用戶界面
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Card } from '../ui/Card.jsx';
-import { Button } from '../ui/Button.jsx';
-import { Modal } from '../ui/Modal.jsx';
+import Card from '../ui/Card.jsx';
+import Button from '../ui/Button.jsx';
+import Modal from '../ui/Modal.jsx';
 import { CONFLICT_TYPES, RESOLUTION_STRATEGIES } from '../../services/sync/SyncManager.js';
 
 export const ConflictResolver = ({

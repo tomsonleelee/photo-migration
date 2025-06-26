@@ -1,9 +1,9 @@
 // 用戶同意管理組件
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Modal } from '../ui/Modal.jsx';
-import { Button } from '../ui/Button.jsx';
-import { Card } from '../ui/Card.jsx';
+import Modal from '../ui/Modal.jsx';
+import Button from '../ui/Button.jsx';
+import Card from '../ui/Card.jsx';
 import PrivacyPolicy from './PrivacyPolicy.jsx';
 import TermsOfService from './TermsOfService.jsx';
 

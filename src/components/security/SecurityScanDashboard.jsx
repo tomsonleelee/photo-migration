@@ -7,9 +7,9 @@ import {
   SEVERITY_LEVELS, 
   SCAN_STATUS 
 } from '../../utils/security/securityScanner.js';
-import { Card } from '../ui/Card.jsx';
-import { Button } from '../ui/Button.jsx';
-import { Modal } from '../ui/Modal.jsx';
+import Card from '../ui/Card.jsx';
+import Button from '../ui/Button.jsx';
+import Modal from '../ui/Modal.jsx';
 
 export const SecurityScanDashboard = ({ 
   userRole = 'admin',

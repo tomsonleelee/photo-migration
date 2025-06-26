@@ -6,9 +6,9 @@ import {
   TFA_METHODS, 
   TFA_STATUS 
 } from '../../utils/security/twoFactorAuth.js';
-import { Button } from '../ui/Button.jsx';
-import { Modal } from '../ui/Modal.jsx';
-import { Card } from '../ui/Card.jsx';
+import Button from '../ui/Button.jsx';
+import Modal from '../ui/Modal.jsx';
+import Card from '../ui/Card.jsx';
 
 export const TwoFactorSetup = ({ 
   userId, 

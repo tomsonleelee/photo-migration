@@ -6,8 +6,8 @@ import {
   ANALYTICS_EVENTS, 
   AGGREGATION_LEVELS 
 } from '../../utils/analytics/privacyAnalytics.js';
-import { Card } from '../ui/Card.jsx';
-import { Button } from '../ui/Button.jsx';
+import Card from '../ui/Card.jsx';
+import Button from '../ui/Button.jsx';
 
 export const AnalyticsDashboard = ({ 
   userRole = 'user', // user, admin, analyst

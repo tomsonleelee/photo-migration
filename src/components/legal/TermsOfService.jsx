@@ -1,8 +1,8 @@
 // 服務條款頁面組件
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Card } from '../ui/Card.jsx';
-import { Button } from '../ui/Button.jsx';
+import Card from '../ui/Card.jsx';
+import Button from '../ui/Button.jsx';
 
 export const TermsOfService = ({ onAccept, onDecline, showActions = false }) => {
   const [expandedSections, setExpandedSections] = useState(new Set());

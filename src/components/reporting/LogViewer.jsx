@@ -1,9 +1,9 @@
 // 日誌查看器組件 - 遷移日誌的過濾和搜尋功能
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Card } from '../ui/Card.jsx';
-import { Button } from '../ui/Button.jsx';
-import { Modal } from '../ui/Modal.jsx';
+import Card from '../ui/Card.jsx';
+import Button from '../ui/Button.jsx';
+import Modal from '../ui/Modal.jsx';
 
 // 日誌級別
 const LOG_LEVELS = {

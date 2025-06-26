@@ -1,9 +1,9 @@
 // 批次狀態監控組件
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Card } from '../ui/Card.jsx';
-import { Button } from '../ui/Button.jsx';
-import { Modal } from '../ui/Modal.jsx';
+import Card from '../ui/Card.jsx';
+import Button from '../ui/Button.jsx';
+import Modal from '../ui/Modal.jsx';
 import { BATCH_STATUS, TASK_STATUS, BATCH_PRIORITY } from '../../services/batch/BatchProcessor.js';
 
 export const BatchStatus = ({ 

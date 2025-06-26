@@ -2,8 +2,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { verifyTwoFactor, TFA_METHODS } from '../../utils/security/twoFactorAuth.js';
-import { Button } from '../ui/Button.jsx';
-import { Card } from '../ui/Card.jsx';
+import Button from '../ui/Button.jsx';
+import Card from '../ui/Card.jsx';
 
 export const TwoFactorVerification = ({
   userId,
