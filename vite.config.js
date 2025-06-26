@@ -26,7 +26,7 @@ export default defineConfig(({ mode }) => ({
     ],
     hmr: {
       port: parseInt(process.env.PORT) || 3000,
-      host: 'fantastic-space-carnival-vwwq5ggqgww3xr99-3000.app.github.dev'
+      host: '0.0.0.0'
     },
     watch: {
       usePolling: true,
@@ -47,8 +47,8 @@ export default defineConfig(({ mode }) => ({
     }
   },
   preview: {
-    port: parseInt(process.env.PORT) || 443,
-    host: 'fantastic-space-carnival-vwwq5ggqgww3xr99-3000.app.github.dev'
+    port: parseInt(process.env.PORT) || 3000,
+    host: '0.0.0.0'
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'react-router-dom']

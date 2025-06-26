@@ -20,9 +20,9 @@ import {
   Legend,
   ResponsiveContainer
 } from 'recharts';
-import { Card } from '../ui/Card.jsx';
-import { Button } from '../ui/Button.jsx';
-import { Modal } from '../ui/Modal.jsx';
+import Card from '../ui/Card.jsx';
+import Button from '../ui/Button.jsx';
+import Modal from '../ui/Modal.jsx';
 import { REPORT_TYPES, TIME_RANGES } from '../../services/reporting/ReportGenerator.js';
 
 // 色彩主題
